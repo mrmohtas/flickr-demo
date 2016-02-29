@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example - example-input-directive-production</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    (function (angular) {
+    'use strict';
+    angular.module('formFlickr', [])
+      .controller('FlickrController', ['$scope', '$http', function ($scope, $http) {
+
+        $scope.master = {};
+        $scope.images = {};
+
+        var flickrAPI = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=JSON_CALLBACK";
+
+        $scope.search = function (searchCriteria) {
+          if (searchCriteria.tags == undefined || searchCriteria.tags.trim() == "") {
+            searchCriteria.tags = null;
+            $scope.master = angular.copy(searchCriteria);
+            $scope.form.$submitted = true;
+            return false;
+          }
+          $scope.form.tags.$setUntouched();
+          $scope.form.tags.$setValidity();
+
+          flickrAPI = flickrAPI + "&tags=" + encodeURIComponent($scope.searchCriteria.tags);
+
+          $http.jsonp(flickrAPI)
+            .success(function (data) {
+              $scope.images = data;
+            })
+            .error(function (data) {
+              $scope.images = data;
+            });
+        };
+
+        $http.jsonp(flickrAPI)
+          .success(function (data) {
+            $scope.images = data;
+          })
+          .error(function (data) {
+            $scope.images = data;
+          });
+      }]);
+    })(window.angular);
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row" ng-app="formFlickr" ng-controller="FlickrController">
+      <div class="col-sm-12">
+        <div class="col-sm-8">
+          <h1>Flickr API</h1>
+        </div>
+
+        <form name="form" class="validate-form col-sm-4">
+          <div class="input-group">
+            <input class="form-control" ng-model="searchCriteria.tags" ng-target="form.tags" type="text" name="tags" placeholder="Search tags" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary" ng-click="search(searchCriteria)">
+                Search
+              </button>
+            </span>
+          </div>
+        </form>
+
+        <div class="col-sm-12">
+          <h3 ng-show="images.items.length > 0">
+            {{images.title}}
+          </h3>
+
+          <h3 ng-show="images.items.length == 0">
+            No photos found with the tag(s) - {{form.tags}}
+          </h3>
+
+          <ul>
+            <li ng-repeat="item in images.items">
+              <img ng-src="{{item.media.m}}" title="{{ item.title }}"/>
+              <p>
+                <a href="{{item.link}}">{{item.title}}</a> by <a href="https://www.flickr.com/people/{{item.author_id}}">{{item.author}}</a>
+              </p>
+
+              <p>
+                Description: {{item.description}}
+              </p>
+
+              <div ng-if="item.tags">
+                <hr>
+                <p>Tags: {{item.tags}}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

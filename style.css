@@ -1,0 +1,39 @@
+h1 {
+  margin: 20px 0;
+  line-height: 34px; }
+
+form {
+  margin: 20px 0; }
+
+ul {
+  list-style: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
+li {
+  width: 30%;
+  overflow: hidden;
+  word-wrap: break-word;
+  border: 1px solid #888;
+  padding: 5px;
+  margin-bottom: 10px; }
+  li > * {
+    text-align: left; }
+
+li:not(:nth-child(3n+3)) {
+  margin-right: 10px; }
+
+img {
+  width: 100%;
+  margin-bottom: 10px; }
