@@ -9,6 +9,7 @@ Demo: [tom.sturge.co/flickr-demo](http://tom.sturge.co/flickr-demo/)
 ## Tools
 
 - [AngularJS](angularjs.com)
+- [Grunt](http://gruntjs.com/)
 - [SASS](sass-lang.com)
 - [Bootstrap](getbootstrap.com)
 - [Normalize](https://necolas.github.io/normalize.css/)
