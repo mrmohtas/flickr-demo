@@ -58,22 +58,22 @@
 <body>
   <div class="container">
     <div class="row" ng-app="formFlickr" ng-controller="FlickrController">
-      <div class="col-sm-12">
-        <div class="col-sm-8">
-          <h1>Flickr API</h1>
-        </div>
+      <div class="col-sm-8">
+	<h1>Flickr API</h1>
+      </div>
 
-        <form name="form" class="validate-form col-sm-4">
-          <div class="input-group">
-            <input class="form-control" ng-model="searchCriteria.tags" ng-target="form.tags" type="text" name="tags" placeholder="Search tags" />
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-primary" ng-click="search(searchCriteria)">
-                Search
-              </button>
-            </span>
-          </div>
-        </form>
+      <form name="form" class="validate-form col-sm-4">
+        <div class="input-group">
+          <input class="form-control" ng-model="searchCriteria.tags" ng-target="form.tags" type="text" name="tags" placeholder="Search tags" />
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary" ng-click="search(searchCriteria)">
+              Search
+            </button>
+          </span>
+        </div> 
+      </form>
 
+      <div class="row">
         <div class="col-sm-12">
           <h3 ng-show="images.items.length > 0">
             {{images.title}}
